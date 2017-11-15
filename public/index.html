@@ -1,16 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Index-Page</title>
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+    <title>Chat_App</title>
 </head>
+
 <body>
-    <p>Welcome to The Chat-App</p>
+    <h1>Welcome To The Chat-App</h1>
+    <p>
+        This is a simple-message app under construction - 2017
+    </p>
+
+    <ol id="messages"></ol>
 
 
-  <script src="/socket.io/socket.io.js"></script>
-  <script src="/js/index.js"></script>
+    <form id="message-form">
+        <input name="message" type="text" placeholder="Enter A Message" />
+        <button>Send</button>
+    </form>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/libs/jquery-3.2.1.min.js"></script>
+    <script src="/js/index.js"></script>
+
 </body>
 </html>
