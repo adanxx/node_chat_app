@@ -18,15 +18,23 @@ io.on('connection', (socket) => {
     console.log();
     console.log('new user connected');
 
+    /*
     socket.emit('Message', {
      from: 'dummy2@hotmail.com',
      text: 'Hi you  got mail',
      CreateAt: '1234'
 
     });
+    */
 
-    socket.on('newMessage', (newMessage)=>{
-      console.log('createMessage: ',newMessage)
+    socket.on('createMessage', (message)=>{
+      console.log('createMessage: ', message)
+
+      io.emit('newMessage', {
+         from: message.from,
+         text: message.text,
+         CreateAt: new Date().getTime().toFixed()
+      });
     });
 
     socket.on('disconnect', () => {
