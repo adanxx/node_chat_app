@@ -6,6 +6,7 @@ const socketIO = require('socket.io');
 const publicPath = path.join(__dirname + '/../public'); // the path-lib is an easy extention to direct to files in different directive 
 const port = process.env.PORT || 5000; // our simple process path interchanges between the localport server and heroku server when it is online
 
+const {generateMessage} = require('./utils/message'); 
 
 var app = express();
 var server = http.createServer(app);
@@ -26,31 +27,21 @@ io.on('connection', (socket) => {
 
     });
     */
-    socket.emit('newMessage', {
-        from: 'Admin',
-        text: 'Welcome to the chat-app',
-        CreateAt: new Date().getTime()
-    });
+    socket.emit('newMessage', generateMessage('Admin','Welcome to the chat-App'));
 
-    socket.broadcast.emit('newMessage', {
-        from: 'Admin',
-        text: 'New user as join the chat',
-        CreateAt: new Date().getTime()
-    });
+    socket.broadcast.emit('newMessage',  generateMessage('Admin','New User joined the chat'));
 
     socket.on('createMessage', (message) => {
         console.log('createMessage: ', message)
-        io.emit('newMessage', {
-            from: message.from,
-            text: message.text,
-            CreateAt: new Date().getTime()
-        });
+        io.emit('newMessage',  generateMessage( message.from , message.text));
 
+        /*
         socket.broadcast.emit('newMessage', {
             from: message.from,
             text: message.text,
             CreateAt: new Date().getTime()
         });
+        */
 
     });
 
