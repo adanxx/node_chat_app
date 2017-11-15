@@ -8,7 +8,7 @@ var app = express();
 app.use(express.static(publicPath));
 
 app.listen(port, ()=>{
-  console.log('Server running on Port:'+ port);
+  console.log('Server is runing on Port:'+ port);
 })
 
 ///console.log(__dirname + '/../public');  //dirname reference the current directiv, in this case it "server-folder"
