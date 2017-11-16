@@ -14,6 +14,7 @@ var io = socketIO(server);
 
 app.use(express.static(publicPath)); // we use a path-lib to direct the server to index.html page.
 
+const {isRealString } = require('./utils/validation');
 
 io.on('connection', (socket) => {
     console.log();
@@ -27,9 +28,24 @@ io.on('connection', (socket) => {
 
     });
     */
-    socket.emit('newMessage', generateMessage('Admin :', 'Welcome to the chat-App'));
+    
+    socket.on('join', (params, callback)=>{
+   
+      if(!isRealString(params.name) || !isRealString(params.room)){
+           callback('Name or Room-name required.!');
+      }
 
-    socket.broadcast.emit('newMessage', generateMessage('Admin :', 'New User joined the chat'));
+      socket.join(params.room);
+      //socket.leave(params.room);
+      //socket.io -> io.to(params.room).emit
+      //socket.boardcast.emit -> socket.boardcast.to(params.room)
+
+      socket.emit('newMessage', generateMessage('Admin :', 'Welcome to the chat-App'));
+
+      socket.broadcast.to(params.room).emit('newMessage', generateMessage('Admin :', params.name+": has joined."));
+      callback('');
+    });
+
 
     socket.on('createMessage', (message, callback)=> {
         console.log('createMessage: ', message)
