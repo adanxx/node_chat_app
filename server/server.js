@@ -41,9 +41,7 @@ io.on('connection', (socket) => {
             CreateAt: new Date().getTime()
         });
         */
-        callback({
-            data: 'This is from the server'
-        });
+        callback();
     });
 
     socket.on('disconnect', () => {
